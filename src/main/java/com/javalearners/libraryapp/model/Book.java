@@ -5,91 +5,137 @@ public class Book {
     private String title;
     private String author;
     private int publicationYear;
-    private int ISBN;
-    private int bookID;
+    private boolean checkedOut;
+    private int bookId;
     private String bookOwner;
+    private int ISBN;
 
-    private Book(BookBuilder bookBuilder){
-        this.title = bookBuilder.title;
-        this.author = bookBuilder.author;
-        this.publicationYear = bookBuilder.publicationYear;
-        this.ISBN = bookBuilder.ISBN;
-        this.bookID = bookBuilder.bookID;
-        this.bookOwner = bookBuilder.bookOwner;
+
+
+    public Book(
+            String title, String author, int publicationYear,
+            boolean checkedOut, int bookId, String bookOwner, int ISBN) {
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+        this.checkedOut = checkedOut;
+        this.bookId = bookId;
+        this.bookOwner = bookOwner;
+        this.ISBN = ISBN;
+
     }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
-
-    public int getPublicationYear() { return publicationYear; }
-    public void setPublicationYear(int publicationYear) { this.publicationYear = publicationYear; }
-
-    public int getISBN() { return ISBN; }
-    public void setISBN(int ISBN) { this.ISBN = ISBN; }
-
-    public int getBookID() { return bookID; }
-    public void setBookID(int bookID) { this.bookID = bookID; }
-
-    public String getBookOwner() { return bookOwner; }
-    public void setBookOwner(String bookOwner) { this.bookOwner = bookOwner; }
-
-    @Override
-    public String toString(){
-        return "FINISH THIS LATER";
+    public String getTitle() {
+        return title;
     }
 
-    public static class BookBuilder {
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setPublicationYear(int publicationYear) {
+        this.publicationYear = publicationYear;
+    }
+
+    public boolean getCheckedOut(boolean checkedOut) {
+        return this.checkedOut = checkedOut;
+    }
+
+    public void setCheckedOut(boolean checkedOut) {
+        this.checkedOut = checkedOut;
+    }
+
+    public static class Builder {
         private String title;
         private String author;
         private int publicationYear;
-        private int ISBN;
-        private int bookID;
+        private boolean checkedOut;
+        private int bookId;
         private String bookOwner;
+        private int ISBN;
 
-        public BookBuilder() {
-            this.bookOwner = "none";
+        public Builder() {
+
         }
 
-        public BookBuilder title(String title) {
+        public Builder theTitle(String title) {
             this.title = title;
             return this;
         }
 
-        public BookBuilder author(String author) {
+        public Builder theAuthor(String author) {
             this.author = author;
             return this;
         }
 
-        public BookBuilder publicationYear(int publicationYear) {
+        public Builder thePublicationYear(int publicationYear) {
             this.publicationYear = publicationYear;
             return this;
         }
 
-        public BookBuilder ISBN(int ISBN) {
-            this.ISBN = ISBN;
+        public Builder theCheckedOut(boolean checkedOut) {
+            this.checkedOut = checkedOut;
             return this;
         }
 
-        public BookBuilder bookID(int bookID) {
-            this.bookID = bookID;
+        public Builder theBookId(int bookId) {
+            this.bookId = bookId;
             return this;
         }
 
-        public BookBuilder bookOwner(String bookOwner) {
+        public Builder theBookOwner(String bookOwner) {
             this.bookOwner = bookOwner;
             return this;
         }
 
-        public Book build() {
-            Book book = new Book(this);
-            //validateBook(book);
-            return book;
+        public Builder theISBN(int ISBN) {
+            this.ISBN = ISBN;
+            return this;
         }
 
-        // IMPLEMENT LATER
-        //private void validateBook(Book book){};
+        public Book build() {
+
+            return new Book(title, author, publicationYear, checkedOut, bookId, bookOwner, ISBN);
+        }
     }
+
+
+
+
+    @Override
+    public String toString() {
+        return
+                "Title : '" + this.getTitle() + "', Author: '" + this.getAuthor()
+                        + "', Publication Year: '" + this.getPublicationYear() +
+                        "', Is it checked out: '" + this.getCheckedOut(false) +
+                        "', BookID: '" + this.bookId + "', Book Owner: '" +
+                        this.bookOwner + "', ISBN: '" + this.ISBN + "'";
+    }
+    public static void main(String[] args) {
+        Book book1 = new Book.Builder()
+                .theTitle("Start with Why")
+                .theAuthor("Mike")
+                .thePublicationYear(1999)
+                .theCheckedOut(true)
+                .theBookId(3424)
+                .theBookOwner("Islam")
+                .theISBN(4234)
+                .build();
+
+
+        System.out.println(book1.toString());
+    }
+
 }
